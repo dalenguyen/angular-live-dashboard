@@ -25,6 +25,9 @@ jobs:
         with:
           node-version: '20.x'
 
+      - name: Get repository name
+        run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+
       - name: Set environment variable based on branch
         run: |
           if [[ $GITHUB_REF == refs/heads/main || $GITHUB_REF == refs/heads/master ]]; then
@@ -56,7 +59,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm run build
+        run: pnpm run build --baseHref="/${{ env.REPO_NAME }}/"
 
       - name: Create .nojekyll file
         run: touch ${{ env.TARGET_DIR }}/.nojekyll
