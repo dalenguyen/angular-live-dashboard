@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WidgetRegistryService } from '../shared/services/widget-registry.service';
 import { DashboardStateService } from '../shared/services/dashboard-state.service';
 import { WidgetConfig } from '../shared/interfaces/widget.interface';
+import { v4 as uuidv4 } from 'uuid';
 
 interface WidgetOption {
   type: string;
@@ -86,7 +86,7 @@ export class WidgetDialogComponent {
 
   addWidget(type: string) {
     const widget: WidgetConfig = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       type,
       title:
         this.availableWidgets().find((w) => w.type === type)?.title || type,

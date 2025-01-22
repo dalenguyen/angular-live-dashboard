@@ -50,8 +50,8 @@ src/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/dashboard-app.git
-cd dashboard-app
+git clone https://github.com/yourusername/angular-live-dashboard.git
+cd angular-live-dashboard
 ```
 
 2. Install dependencies:
