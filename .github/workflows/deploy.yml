@@ -59,10 +59,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm run build --baseHref="/${{ env.REPO_NAME }}/"
-
-      - name: Create .nojekyll file
-        run: touch ${{ env.TARGET_DIR }}/.nojekyll
+        run: pnpm run build
 
       - name: Configure Git
         run: |
@@ -76,8 +73,6 @@ jobs:
           npx angular-cli-ghpages --no-silent --dir="${{env.TARGET_DIR}}" \
             --name="github-actions[bot]" \
             --email="github-actions[bot]@users.noreply.github.com" \
-            --repo="https://github.com/${GITHUB_REPOSITORY}.git" \
             --branch="gh-pages" \
             --message="Deploy: $(git log -1 --pretty=%B)" \
-            --no-history \
-            --force
+            --dry-run=${{ env.DRY_RUN_OPTION }}
