@@ -27,6 +27,7 @@ jobs:
 
       - name: Get repository name
         run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+    
 
       - name: Set environment variable based on branch
         run: |
@@ -57,6 +58,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: set base href
+        run: |
+          echo "VITE_ANALOG_PUBLIC_BASE_URL=https://dalenguyen.github.io/${{ env.REPO_NAME }}" >> $GITHUB_ENV
 
       - name: Build
         run: pnpm run build --baseHref="/${{ env.REPO_NAME }}/"
