@@ -6,7 +6,7 @@ on:
       - main  # Set this to your default branch
 
 permissions:
-  contents: read
+  contents: write  # Changed to write to allow force pushing
   pages: write
   id-token: write
 
@@ -73,4 +73,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
-          npx angular-cli-ghpages --no-silent --dir="${{env.TARGET_DIR}}" --name="github-actions[bot]" --email="github-actions[bot]@users.noreply.github.com"
+          npx angular-cli-ghpages --no-silent --dir="${{env.TARGET_DIR}}" \
+            --name="github-actions[bot]" \
+            --email="github-actions[bot]@users.noreply.github.com" \
+            --repo="https://github.com/${GITHUB_REPOSITORY}.git" \
+            --branch="gh-pages" \
+            --message="Deploy: $(git log -1 --pretty=%B)" \
+            --no-history \
+            --force
