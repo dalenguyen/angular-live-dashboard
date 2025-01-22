@@ -6,7 +6,6 @@ import { WidgetHostComponent } from '../shared/components/widget-host.component'
 import { WidgetDialogComponent } from './widget-dialog.component';
 import {
   CdkDragDrop,
-  CdkDragMove,
   DragDropModule,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';

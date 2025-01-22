@@ -75,5 +75,6 @@ jobs:
             --name="github-actions[bot]" \
             --email="github-actions[bot]@users.noreply.github.com" \
             --branch="gh-pages" \
+            --base-href="/${{ env.REPO_NAME }}/" \
             --message="Deploy: $(git log -1 --pretty=%B)" \
             $DRY_RUN_OPTION
