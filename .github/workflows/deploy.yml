@@ -14,7 +14,7 @@ env:
   TARGET_DIR: dist/analog/public
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -61,7 +61,7 @@ jobs:
       - name: Build
         run: pnpm run build --baseHref="/${{ env.REPO_NAME }}/"
 
-      - name: Deploy to GitHub Pages
+      - name: Push to gh-pages branch
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
@@ -72,3 +72,27 @@ jobs:
             --branch="gh-pages" \
             --message="Deploy: $(git log -1 --pretty=%B)" \
             $DRY_RUN_OPTION
+
+  deploy-pages:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
