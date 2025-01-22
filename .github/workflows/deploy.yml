@@ -70,9 +70,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
+          echo "DRY_RUN_OPTION=$DRY_RUN_OPTION"
           npx angular-cli-ghpages --no-silent --dir="${{env.TARGET_DIR}}" \
             --name="github-actions[bot]" \
             --email="github-actions[bot]@users.noreply.github.com" \
             --branch="gh-pages" \
             --message="Deploy: $(git log -1 --pretty=%B)" \
-            --dry-run=${{ env.DRY_RUN_OPTION }}
+            $DRY_RUN_OPTION
