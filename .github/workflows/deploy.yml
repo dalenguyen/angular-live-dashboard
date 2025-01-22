@@ -55,11 +55,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Create .nojekyll file
-        run: touch dist/analog/public/.nojekyll
-
       - name: Build
         run: pnpm run build
+
+      - name: Create .nojekyll file
+        run: touch dist/analog/public/.nojekyll
 
       - name: Deploy to GitHub Pages
         env:
